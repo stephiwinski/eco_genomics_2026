@@ -6,7 +6,7 @@
 
 ------------------------------------------------------------------------
 
-## 9/15/2026 - Setting up lab notebook and learning markdown 
+## 9/15/2026 - Setting up lab notebook and learning markdown
 
 -   setting up transcriptomics notebook
 
@@ -64,7 +64,7 @@ lets dive in
 
 ------------------------------------------------------------------------
 
-## 9/15/2026 - Setting up lab notebook and learning markdown 
+## 9/15/2026 - Setting up lab notebook and learning markdown
 
 -   setting up transcriptomics notebook
 
