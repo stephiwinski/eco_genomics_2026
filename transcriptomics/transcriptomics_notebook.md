@@ -1,3 +1,9 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 # Transcriptomics Notebook
 
 **Course:** Intro to Ecological Genomics - Fall 2026
@@ -101,3 +107,22 @@ print ("Hello World")
 ```
 
 **Table:**
+
+## 9/22/2026 - Day 3 of transcriptomics
+
+Today we set up our R working environment and copied the data to import
+into DESeq2.
+
+\*\*\*Notes on what we did with all of the code
+
+important line of code for adding the counts matrix to my files
+
+`cp /gpfs1/cl/biol3990/Transcriptomics/CountsMatrix/\* .`
+
+Worked on a R script for looking at the A hudsonica data set
+
+**Scripts:** `ahud_DESeq_inclass.R`
+
+**Graph:**
+
+![](myresults/PCA_allGens.png){width="600"}
