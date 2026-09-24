@@ -62,11 +62,7 @@ print ("Hello World")
 
 **Notes/Observations:**
 
--   oh cool graph! it makes sense!and some interpretation of your datat
-
-**Next Steps**:
-
-lets dive in
+-   oh cool graph! it makes sense! and some interpretation of your data
 
 ------------------------------------------------------------------------
 
@@ -126,3 +122,11 @@ Worked on a R script for looking at the A hudsonica data set
 **Graph:**
 
 ![](myresults/PCA_allGens.png){width="600"}
+
+## 9/24/2026 - Day 4 of transcriptomics
+
+Today we worked in R and learned about paths and directories,
+deciphering where things are
+
+
+
