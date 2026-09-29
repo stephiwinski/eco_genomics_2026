@@ -190,3 +190,54 @@ Worked on a new R script for general understanding
 using four \#### after a line of text will make a header/bookmark
 
 Gives you results from statistical tests: `resultsNames(dds)`
+
+## 9/29/2026 - Day 4 of transcriptomics
+
+Today we worked in R and visualized the counts matrix, understanding
+visualizations
+
+Remember to set working directory before doing anything! notes: in the
+file explorer, when you are in the folder you want to be in, you can hit
+more on the top and select set working directory. don't forget the
+quotations
+
+**My path:**
+
+`setwd("~/projects/eco_genomics_2026/transcriptomics/mydata")`
+
+use a rounded counts tables because DESeq does not like decimals and
+requires whole numbers
+
+just running the treatment through this analysis
+
+**R script created:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/9.29.26_AHUD_DESEQpt2.R`
+
+**Images and Plots Created:**
+
+![](transcriptomics/images/highcountgenexpplot_9.29.26.png){width="391"}
+
+Plotting an individual gene, highest count value, in the four different
+treatments
+
+![](transcriptomics/images/volcanoplot_9.29.26.png){width="467"}
+
+There is a lot more up regulation then down regulation. looking at
+statistical analysis and p-value significance.
+
+![](transcriptomics/images/heatmap_9.29.26.png){width="456"}
+
+graphed heat map of the top differentially expressed genes. Top 100
+genes.
+
+![](transcriptomics/images/eulerplot_9.29.26.png){width="402"}
+
+Euler plot (like a Venn diagram but better). Scales the size of the
+circles to the size of what is contained within them.
+
+![](transcriptomics/images/upsetplot_9.29.26.png){width="405"}
+
+Upset plot
+
+A new bit of code! `%in%` This asks, “is this member of that group?”
