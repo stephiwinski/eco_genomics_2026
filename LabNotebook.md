@@ -90,10 +90,6 @@ print ("Hello World")
 |      |      |      |
 |      |      |      |
 
-**Image:**
-
-![](images/clipboard-3495178121.png)
-
 **Notes/Observations:**
 
 -   oh cool graph! it makes sense! and some interpretation of your data
@@ -241,3 +237,73 @@ circles to the size of what is contained within them.
 Upset plot
 
 A new bit of code! `%in%` This asks, “is this member of that group?”
+
+## 10/1/2026 - Day 5 of transcriptomics
+
+created a scatter plot using our A. hudsonica data
+
+**R script added to:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/9.29.26_AHUD_DESEQpt2.R`
+
+What is Log2FoldChange? What do higher or lower values indicate?
+
+-   measures how much a gene's expression changes, using a base 2 log
+    scale. Relative
+
+    -   Positive values mean up regulation
+
+    -   negative values mean down regulation
+
+What if we wanted to change the order of the points? What would you
+edit?
+
+-   change the order that they are appear in the script, change the
+    order of the levels
+
+What if we wanted to compare OA vs OWA instead of OW vs OWA? What would
+you edit?
+
+-   change what you are plotting a the beginning of the ggplot section
+    of the script.
+
+In the plot, what is alpha doing, what is annotate doing?
+
+-   in ggplot they are using alpha as opacity
+
+-   alpha is very variable for its meaning in different packages
+
+-   annotate is plugging in the text to our graph, like our r value
+
+![](transcriptomics/images/ahud_scatterplot_10.1.2026.png){width="394"}
+
+Scatter plot
+
+-   red dots, more vertical, more important for owa vs am
+
+-   blue dots, more horizontal, significant for ow vs am
+
+-   consistency across biological replicates, a lot of variation might
+    make a dot not significant (ex grey dot top right)
+
+**We used four tidyverse (dplyr) functions:**
+
+`filter()` to remove rows
+
+`mutate()` to add a new variable
+
+`case_when()` to classify genes into categories
+
+`arrange()` to sort the rows
+
+Another handy Tidyverse function `%>%`
+
+**Typical genomics workflow**
+
+-   Filter the data.
+
+-   Annotate/Classify the genes.
+
+-   Order the results.
+
+-   Visualize with ggplot.
