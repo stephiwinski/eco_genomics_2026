@@ -307,3 +307,71 @@ Another handy Tidyverse function `%>%`
 -   Order the results.
 
 -   Visualize with ggplot.
+
+## 10/6/2026 - Day 6 of transcriptomics
+
+Understand how gene ontology (GO) functional enrichment analysis works;
+perform GO analyses using TopGO
+
+Perform and understand Weighted Gene Correlation Network Analysis
+((WGCNA))
+
+**Working Directory:**
+`setwd("~/projects/eco_genomics_2026/transcriptomics/mydata")`
+
+**Libraries used:**
+
+```{r}
+library(DESeq2)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(ggpubr)
+library(wesanderson)
+library(vsn)  
+```
+
+**R script created:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/TopGo_pt2.R`
+
+**Copying Files over from the class folder in terminal**
+
+`cd /gpfs1/cl/biol3990/Transcriptomics/GOenrichment`
+
+`ll`
+
+`p trinotate_annotation_GOblastx_forTopGO.txt ~/projects/eco_genomics_2026/transcriptomics/mydata`
+
+`cp transcript_universe.csv ~/projects/eco_genomics_2026/transcriptomics/mydata`
+
+Filter GO terms by size: Why would we want to do this? - avoid errors,
+by eliminating very small ones and very large ones. If you don't filter
+it out, you might get something being like your gene does biology,
+instead of something more specific
+
+New fun code `gc()` meaning garbage collection which cleans up the space
+you are taking up.
+
+Why create a TopGo contrast? is it deferentially expressed, gene list,
+under the ground statistics explaining if this is more than we would
+expect than random chance
+
+Bubble plots of the top 10 GO categories and in the three contrasts
+
+![](transcriptomics/images/TopGO OWA_AM.png){width="517"}
+
+![](transcriptomics/images/TopGO OW_AM.png){width="532"}
+
+![](transcriptomics/images/TopGO OA_AM.png){width="548"}
+
+**Weighted Gene Correlation Network Analyses (WGCNA)**
+
+**R script created**:
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/WGCNA.R`
+
+![](transcriptomics/images/cluster dendrogram.png){width="397"}
+
+Got about halfway through the WGCNA code. Will continue next class.
