@@ -21,7 +21,7 @@ library(Rmisc)
 
 # 1. Import the counts matrix and metadata and filter using DESeq2
 
-countsTable <- read.table("mydata/salmon.isoform.counts.matrix.filteredAssembly", header=TRUE, row.names=1)
+countsTable <- read.table("salmon.isoform.counts.matrix.filteredAssembly", header=TRUE, row.names=1)
 head(countsTable)
 dim(countsTable)
 
@@ -32,7 +32,7 @@ head(countsTableRound)
 # conds <- read.delim("ahud_samples_R.txt", header=TRUE, stringsAsFactors = TRUE, row.names=1)
 # head(conds)
 
-sample_metadata = read.table(file = "mydata/Ahud_trait_data.txt",header=T, row.names = 1)
+sample_metadata = read.table(file = "Ahud_trait_data.txt",header=T, row.names = 1)
 
 dds <- DESeqDataSetFromMatrix(countData = countsTableRound, colData=sample_metadata, 
                               design= ~ 1)

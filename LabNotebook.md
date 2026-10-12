@@ -360,11 +360,11 @@ expect than random chance
 
 Bubble plots of the top 10 GO categories and in the three contrasts
 
-![](transcriptomics/images/TopGO OWA_AM.png){width="517"}
+![](transcriptomics/images/TopGO%20OWA_AM.png){width="517"}
 
-![](transcriptomics/images/TopGO OW_AM.png){width="532"}
+![](transcriptomics/images/TopGO%20OW_AM.png){width="532"}
 
-![](transcriptomics/images/TopGO OA_AM.png){width="548"}
+![](transcriptomics/images/TopGO%20OA_AM.png){width="548"}
 
 **Weighted Gene Correlation Network Analyses (WGCNA)**
 
@@ -372,6 +372,42 @@ Bubble plots of the top 10 GO categories and in the three contrasts
 
 `~/projects/eco_genomics_2026/transcriptomics/myscripts/WGCNA.R`
 
-![](transcriptomics/images/cluster dendrogram.png){width="397"}
+![](transcriptomics/images/cluster%20dendrogram.png){width="397"}
 
 Got about halfway through the WGCNA code. Will continue next class.
+
+## 10/8/2026 - Day 6 of transcriptomics
+
+Perform and understand Weighted Gene Correlation Network Analysis
+((WGCNA))
+
+Worked on Homework project, and created R script.
+
+**Working Directory:**
+
+`setwd("~/projects/eco_genomics_2026/transcriptomics/mydata")`
+
+**R script used**:
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/WGCNA.R`
+
+**Homework R script created:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/Homework 1.R`
+
+## 10/12/2026 - Homework one
+
+edited homework #1 R script. Figured out the subsetting problem with
+generation F11. \`
+
+Built the volcano graphs for the the three generations comparing OWA to
+AM. Utilized other R scripts and transcriptomics tutorials to help
+figure out how to build the graphs. Worked on organizing the volcano
+plots together.
+
+**R-script:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/Homework 1.R`
+
+**Next**: I have to make a combined Euler plot, and then run the TopGo
+analyses and make plots from that analysis.
