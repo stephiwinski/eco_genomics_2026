@@ -102,8 +102,6 @@ print ("Hello World")
 print ("Hello World") 
 ```
 
-**Table:**
-
 ## 9/22/2026 - Day 3 of transcriptomics
 
 Today we set up our R working environment and copied the data to import
@@ -121,12 +119,265 @@ Worked on a R script for looking at the A hudsonica data set
 
 **Graph:**
 
-![](myresults/PCA_allGens.png){width="600"}
+![](myresults/PCA_allGens.png)
 
 ## 9/24/2026 - Day 4 of transcriptomics
 
 Today we worked in R and learned about paths and directories,
 deciphering where things are
 
+**Regularly used Bash code**
 
+pwd = print working directory, PATH, where am I?
 
+cd = change directory
+
+zcat = print out file
+
+head - give just the top of the file
+
+.. = moves back directory
+
+. = from where I am
+
+ls = list, whats here?
+
+ll = long list, whats here?
+
+Worked on a new R script for general understanding
+
+**Output file:**
+`/gpfs1/home/s/i/siwinski/projects/eco_genomics_2026/transcriptomics/LearningInR.R`
+
+**New R codes**
+
+using four \#### after a line of text will make a header/bookmark
+
+Gives you results from statistical tests: `resultsNames(dds)`
+
+## 9/29/2026 - Day 4 of transcriptomics
+
+Today we worked in R and visualized the counts matrix, understanding
+visualizations
+
+Remember to set working directory before doing anything! notes: in the
+file explorer, when you are in the folder you want to be in, you can hit
+more on the top and select set working directory. don't forget the
+quotations
+
+**My path:**
+
+`setwd("~/projects/eco_genomics_2026/transcriptomics/mydata")`
+
+use a rounded counts tables because DESeq does not like decimals and
+requires whole numbers
+
+just running the treatment through this analysis
+
+**R script created:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/9.29.26_AHUD_DESEQpt2.R`
+
+**Images and Plots Created:**
+
+![](images/highcountgenexpplot_9.29.26.png)
+
+Plotting an individual gene, highest count value, in the four different
+treatments
+
+![](images/volcanoplot_9.29.26.png)
+
+There is a lot more up regulation then down regulation. looking at
+statistical analysis and p-value significance.
+
+![](images/heatmap_9.29.26.png)
+
+graphed heat map of the top differentially expressed genes. Top 100
+genes.
+
+![](images/eulerplot_9.29.26.png)
+
+Euler plot (like a Venn diagram but better). Scales the size of the
+circles to the size of what is contained within them.
+
+![](images/upsetplot_9.29.26.png)
+
+Upset plot
+
+A new bit of code! `%in%` This asks, “is this member of that group?”
+
+## 10/1/2026 - Day 5 of transcriptomics
+
+created a scatter plot using our A. hudsonica data
+
+**R script added to:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/9.29.26_AHUD_DESEQpt2.R`
+
+What is Log2FoldChange? What do higher or lower values indicate?
+
+-   measures how much a gene's expression changes, using a base 2 log
+    scale. Relative
+
+    -   Positive values mean up regulation
+
+    -   negative values mean down regulation
+
+What if we wanted to change the order of the points? What would you
+edit?
+
+-   change the order that they are appear in the script, change the
+    order of the levels
+
+What if we wanted to compare OA vs OWA instead of OW vs OWA? What would
+you edit?
+
+-   change what you are plotting a the beginning of the ggplot section
+    of the script.
+
+In the plot, what is alpha doing, what is annotate doing?
+
+-   in ggplot they are using alpha as opacity
+
+-   alpha is very variable for its meaning in different packages
+
+-   annotate is plugging in the text to our graph, like our r value
+
+![](images/ahud_scatterplot_10.1.2026.png)
+
+Scatter plot
+
+-   red dots, more vertical, more important for owa vs am
+
+-   blue dots, more horizontal, significant for ow vs am
+
+-   consistency across biological replicates, a lot of variation might
+    make a dot not significant (ex grey dot top right)
+
+**We used four tidyverse (dplyr) functions:**
+
+`filter()` to remove rows
+
+`mutate()` to add a new variable
+
+`case_when()` to classify genes into categories
+
+`arrange()` to sort the rows
+
+Another handy Tidyverse function `%>%`
+
+**Typical genomics workflow**
+
+-   Filter the data.
+
+-   Annotate/Classify the genes.
+
+-   Order the results.
+
+-   Visualize with ggplot.
+
+## 10/6/2026 - Day 6 of transcriptomics
+
+Understand how gene ontology (GO) functional enrichment analysis works;
+perform GO analyses using TopGO
+
+Perform and understand Weighted Gene Correlation Network Analysis
+((WGCNA))
+
+**Working Directory:**
+`setwd("~/projects/eco_genomics_2026/transcriptomics/mydata")`
+
+**Libraries used:**
+
+```{r}
+library(DESeq2)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(ggpubr)
+library(wesanderson)
+library(vsn)  
+```
+
+**R script created:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/TopGo_pt2.R`
+
+**Copying Files over from the class folder in terminal**
+
+`cd /gpfs1/cl/biol3990/Transcriptomics/GOenrichment`
+
+`ll`
+
+`p trinotate_annotation_GOblastx_forTopGO.txt ~/projects/eco_genomics_2026/transcriptomics/mydata`
+
+`cp transcript_universe.csv ~/projects/eco_genomics_2026/transcriptomics/mydata`
+
+Filter GO terms by size: Why would we want to do this? - avoid errors,
+by eliminating very small ones and very large ones. If you don't filter
+it out, you might get something being like your gene does biology,
+instead of something more specific
+
+New fun code `gc()` meaning garbage collection which cleans up the space
+you are taking up.
+
+Why create a TopGo contrast? is it deferentially expressed, gene list,
+under the ground statistics explaining if this is more than we would
+expect than random chance
+
+Bubble plots of the top 10 GO categories and in the three contrasts
+
+![](images/TopGO OWA_AM.png)
+
+![](images/TopGO OW_AM.png)
+
+![](images/TopGO OA_AM.png)
+
+![](transcriptomics/images/TopGO%20OA_AM.png){width="548"}
+
+**Weighted Gene Correlation Network Analyses (WGCNA)**
+
+**R script created**:
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/WGCNA.R`
+
+![](images/cluster dendrogram.png)
+
+Got about halfway through the WGCNA code. Will continue next class.
+
+## 10/8/2026 - Day 6 of transcriptomics
+
+Perform and understand Weighted Gene Correlation Network Analysis
+((WGCNA))
+
+Worked on Homework project, and created R script.
+
+**Working Directory:**
+
+`setwd("~/projects/eco_genomics_2026/transcriptomics/mydata")`
+
+**R script used**:
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/WGCNA.R`
+
+**Homework R script created:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/Homework 1.R`
+
+## Homework one
+
+edited homework #1 R script. Figured out the subsetting problem with
+generation F11. \`
+
+Built the volcano graphs for the the three generations comparing OWA to
+AM. Utilized other R scripts and transcriptomics tutorials to help
+figure out how to build the graphs. Worked on organizing the volcano
+plots together.
+
+**R-script:**
+
+`~/projects/eco_genomics_2026/transcriptomics/myscripts/Homework 1.R`
+
+**Next**: I have to make a combined Euler plot, and then run the TopGo
+analyses and make plots from that analysis.
