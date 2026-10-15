@@ -121,7 +121,7 @@ volcano_F0 <- volcano_df0 %>%
     )
   )
 
-p2 <- ggplot(volcano_F0,
+p1 <- ggplot(volcano_F0,
        aes(x = log2FoldChange,
            y = -log10(padj),
            color = sig)) +
@@ -173,7 +173,7 @@ volcano_F4 <- volcano_df4 %>%
     )
   ) 
 
-p1 <- ggplot(volcano_F4,
+p2 <- ggplot(volcano_F4,
        aes(x = log2FoldChange,
            y = -log10(padj),
            color = sig)) +
@@ -204,9 +204,12 @@ library(cowplot)
 install.packages("patchwork")
 library(patchwork)
 
-combined_figure <- (p2 + p1 + p3) + 
+combined_figure <- (p1 + p2 + p3) + 
   plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = 'A')
+  plot_annotation(tag_levels = 'A')&      
+  scale_y_continuous(limits = c(0, 100))&
+  scale_x_continuous(limits = c(-10, 10))
+
 
 print(combined_figure)
 
@@ -259,6 +262,11 @@ length(intersect(degs_OWAvsAMF4,degs_OWAvsAMF11))  # 8
 # Shared across all
 intWA <- intersect(degs_OWAvsAMF0,degs_OWAvsAMF4)
 length(intersect(degs_OWAvsAMF11,intWA)) # 2
+
+# the two shared genes shared across all
+intWA <- intersect(degs_OWAvsAMF0, degs_OWAvsAMF4)
+shared_genes_all <- intersect(degs_OWAvsAMF11, intWA)
+print(shared_genes_all)
 
 # Number unique to each treatment
 
