@@ -1,0 +1,23 @@
+/var/spool/slurm/d/job5946619/slurm_script: line 17: /gpfs1/home/s/i/siwinski/projects/eco_genomics_2026/population_genomics/mydata: Is a directory
+
+VCFtools - UNKNOWN
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--gzvcf Lottia_gigantea_pl_flt3.renamed.vcf.gz
+	--missing-indv
+	--out /gpfs1/home/s/i/siwinski/projects/eco_genomics_2026/population_genomics/mydata/missing_data
+
+stat error: No such file or directory
+Error: Can't determine file type of Lottia_gigantea_pl_flt3.renamed.vcf.gz
+
+VCFtools - UNKNOWN
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--gzvcf Lottia_gigantea_pl_flt3.renamed.vcf.gz
+	--depth
+	--out /gpfs1/home/s/i/siwinski/projects/eco_genomics_2026/population_genomics/mydata/depth_data
+
+stat error: No such file or directory
+Error: Can't determine file type of Lottia_gigantea_pl_flt3.renamed.vcf.gz
