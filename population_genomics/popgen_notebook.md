@@ -86,3 +86,23 @@ its not to say that there aren't 3 distinct populations, but we can see the righ
 Those two are in an area where there is a lot of up-welling and is a bit colder than one of the populations slightly north. There might not be a lot of dispersion jut because of geography.
 
 Worked on another batch job to end class
+
+### 10/22/2026 - Day 4 of population genomics
+
+explain nucleotide diversity, heterozygosity, and compare
+
+vcftools version: vcftools/0.1.16
+
+my full directory `/users/s/i/siwinski/projects/eco_genomics_2026/population_genomics/mydata`
+
+Read pi files, joined them together, and produced a pi data frame
+
+vcftools is a bit biased when it comes to calculating pi. We now often use things like pixie, but they are a lot of work and effort to deal with. vcftools gives us a good overview look.
+
+pi plot on genetic diversity
+
+![](myresults/pi/pi_by_site.png){width="517"}
+
+plot using pi vs latitude
+
+![](myresults/pi/pi_vs_latitude.png){width="520"}
