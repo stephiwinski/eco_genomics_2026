@@ -106,3 +106,81 @@ pi plot on genetic diversity
 plot using pi vs latitude
 
 ![](myresults/pi/pi_vs_latitude.png){width="520"}
+
+### 10/27/2026 - Day 5 of population genomics
+
+continued to work on genetic diversity, diversity along the genome, Tajima's D, heterozygosity.
+
+R script added to `~/projects/eco_genomics_2026/population_genomics/myscripts/geneticdiversity.R`
+
+Created a plot looking at the genome, looking at one site. Look at how π varies along one scaffold. Picked the scaffold with the most windows:
+
+![](myresults/pi/pi_along_scaffold.png)
+
+Facet graph looking at all of the different scaffolds
+
+![](myresults/pi/pi_along_scaffold_facet.png){width="588"}
+
+High diversity - gives variety and it could be conditionally beneficical to have this much diversity
+
+*INT* looks interesting because it has a lot less diversity at that site then all of the other graphs and other sites.
+
+**Tajima's D** - compares two estimates of genetic diversity to test for divergence from neutrality across the genome
+
+![](myresults/TajD/tajimasD_by_site.png){width="353"}
+
+similar code to look at how Tajima's D is spread across the genome. If Tajima's D is very negative in an area there could be a lot of positive selection happening in that area of the genome. What is that area related to? maybe thermal tolerance or etc?
+
+Heterozygosity
+
+-   **Observed heterozygosity** (HO) is the proportion of sites at which an individual is heterozygous.
+
+-   **Expected heterozygosity** (HE) is the proportion we would expect if the population mated at random (Hardy–Weinberg equilibrium): 2pq at each site, where p and q are the allele frequencies.
+
+-   **The inbreeding coefficient** compares the two: F = 1 − HO / HE. F = 0 means an individual is as heterozygous as expected, F \> 0 means less heterozygous, and F \< 0 means more.
+
+Using `ggdist` to make a rain cloud plot
+
+![](myresults/het/Ho_by_site.png){width="449"}
+
+Seeing more/higher heterozygosity at the highest and lowest ends of the latitudes/locations.
+
+looking at inbreeding coefficient. Comparing expected and observed heterozygosity.
+
+![](myresults/het/F_by_site.png){width="324"}
+
+-F means not very inbred, more rare alleles than expected . +F means less rare alleles than expected meaning more inbreeding.
+
+**Signatures of Selection**
+
+created `~/projects/eco_genomics_2026/population_genomics/myscripts/selective_sweeps.R`
+
+F~ST~ is the fixation index, measuring how different each sub population is from each other. Asks how much of the total genetic variation is due to differences between populations. 0 means that they are very similar with complete overlap. 1 means that they are completely distinct populations.
+
+Worked in terminal for a little while here.
+
+used VCFtools to do pairwise comparison
+
+Weir and Cockerham mean Fst estimate: 0.016245, Weir and Cockerham weighted Fst estimate: 0.020162
+
+Back in R - Full Path: `/users/s/i/siwinski/projects/eco_genomics_2026/population_genomics/myresults`
+
+created a genome-wide pairwise FST table
+
+![](myresults/pairwise_fst_heatmap.png){width="643"}
+
+ASU and TOR are the two populations that are the southernmost populations that seem to be a bit more different than the rest of the populations. there seems to be a gradient in the graph, the core population being in that top right area.
+
+isolation by distance graph. Using the latitude to plot the FST again
+
+![](myresults/fst_vs_distance.png){width="524"}
+
+There does seem to be some isolation by distance over this population. It is noisy, but we are seeing a trend.
+
+Back in terminal we are scanning the genome in windows.
+
+had to edit this head command in terminal
+
+```{bash}
+head fst/${POP1}_vs_${POP2}_FST_10kb.windowed.weir.fst
+```
