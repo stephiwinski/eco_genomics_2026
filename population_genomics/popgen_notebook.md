@@ -184,3 +184,58 @@ had to edit this head command in terminal
 ```{bash}
 head fst/${POP1}_vs_${POP2}_FST_10kb.windowed.weir.fst
 ```
+
+### 10/29/2026 - Day 6 of population genomics
+
+BayPass - can tackle three populations as the same times. uses Bayesian analysis to run genome scans.
+
+(Omega): the (scaled) covariance matrix of allele frequencies among the populations.
+
+There is a lot of analysis that took a lot of time to run that was done previous to our working with the data in class today. It was run as a batch job. Information about the code and the batch job that was performed can be found in the Signatures of Selection tutorial in section four about BayPass.
+
+Grabbed some data from the class folder for the BayPass using terminal
+
+Made a new R script for baypass `~/projects/eco_genomics_2026/population_genomics/myscripts`
+
+Populations clustered by BayPass Omega
+
+![](myresults/baypass_omega_tree.png){width="519"}
+
+BayPass Omega as correlations visualized
+
+![](myresults/baypass_omega.png){width="487"}
+
+core of the population is that red area in the top right section of the graph. Seems like we might have three different populations here, even though we have sampled at 19 sights. Seems like we have accounted for that neutral population structure and are now looking at the areas that are focused on selection.
+
+BayPass gives you two directions of this sort of p-value because it is looking for balancing selection.
+
+Looking at our p-value distribution
+
+![](myresults/baypass_xtx_pvalues.png){width="363"}
+
+There are a lot of p-values around zero which is surprising.
+
+![](myresults/baypass_xtx_scan.png){width="527"}
+
+Manhattan plot\
+xtx is just looking across everything this next plot is looking it against environment.
+
+![](myresults/baypass_top_sst_snp.png){width="435"}
+
+correlation with latitude and sea surface temperature
+
+then repeated it with latitude
+
+![](myresults/baypass_top_lat_snp.png){width="400"}
+
+what do these patterns suggest
+
+-   the graph above has a strong association with latitude, which is interesting to look into. Supposedly this SNP is standing outside of the omega matrix, this is greater than what we would expect from neutral pop structure
+
+-   you would want it to be a negative slope, or a relationship across the sites with temperature for there to be something going on with sea surface temperature. (flat graph that is not visualized here but was seen in class. They all had .75)
+
+<!-- -->
+
+-   Change and pull out the counts to change the top snp and to change which one is being visualized on the graph.
+
+BayPass is really good at accounting for multiple variables in analysis.
