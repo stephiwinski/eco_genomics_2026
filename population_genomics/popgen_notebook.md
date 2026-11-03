@@ -61,7 +61,7 @@ Plot PC1 and PC2 against latitude
 
 Bonus: a map of our sites
 
-![](myresults/Lg_0.2_pca_map.png){width="626"}
+![![](images/clipboard-3878918158.png)](myresults/Lg_0.2_pca_map.png){width="626"}
 
 cross-validation error plot
 
@@ -239,3 +239,87 @@ what do these patterns suggest
 -   Change and pull out the counts to change the top snp and to change which one is being visualized on the graph.
 
 BayPass is really good at accounting for multiple variables in analysis.
+
+### 11/3/2026 - Day 7 of population genomics
+
+**Genes and gene ontology**
+
+understanding the outliers that we saw in the data. Identify Gene Ontology (GO) terms that are over-represented among genes containing outlier SNPs, using topGO. Identify the genes near outlier SNPs, and the type of change each SNP makes (gene types), using SnpEff output. Bring together our results so far to start building a story
+
+There is a bit of a rough model genome for the set we are looking at.
+
+Molecular functions and cellular components that can be looked at but we will not be focusing on. Today we are focusing on biological processes.
+
+There is GO for genomic offset and GO for gene ontology which is what we are doing here.
+
+-   got files from the class folder to our own directory.
+
+my directory `/users/s/i/siwinski/projects/eco_genomics_2026/population_genomics/`
+
+New R script `/users/s/i/siwinski/projects/eco_genomics_2026/population_genomics/myscripts/gene_functions_topGO.R`
+
+**Part A**
+
+About 60% of the universe genes have GO terms.
+
+We found 1822 outlier SNPs, we were pretty strict with our terms, could expand. There are 272 candidate genes that can be used for analysis with the topGO.
+
+The top go is utilizing biological processes data base and our gene list.
+
+Lollipop plot of the topGO
+
+![](myresults/topGO_BP_.png){width="477"}
+
+filtered for node size, we have not filtered for gene amount yet. That is why some have a very small count with the circle size. If there are less reads, you will have less confidence. Filter things to have a max and minimum to have a sweet spot to confidently say something biologically interesting and have a good amount of gene numbers.
+
+**Part B**
+
+snpEff results table
+
+![](myresults/annocount.png){width="436"}
+
+intergenic region has the highest count, followed by upstream gene variant, then downstream gene variant, then intron variant, etc. (very small).
+
+**Part C** bringing it all together
+
+The database we have been using is NCBI.
+
+what have we done throughout the semester? looking at a table that has the analyses we have done and the questions related to them. Discussing what results we have found.
+
+**Population Structure**
+
+PCA and ADMIXTURE -
+
+Do individuals cluster by site or region? They seem to be clustering by region.
+
+How many genetic groups are there, and are individuals of mixed ancestry? Seems like there are three groups, and they are of mixed ancestry due to the fluidity of oceans.
+
+-   seems like the PCA and admixture support each other. Using this as a gauge as to how many populations we have.
+
+-   K=5 has way to much noise, and error.
+
+-   Could select K=2 or 3
+
+-   its not to say that there aren't 3 distinct populations, but we can see the right two populations are distinctly different from the rest of the groups in all 5 admixtures. Those two on the right are the southernmost groups. What drives them? Could it be temperature?
+
+-   Those two are in an area where there is a lot of up-welling and is a bit colder than one of the populations slightly north. There might not be a lot of dispersion jut because of geography.
+
+**Genetic diversity and signatures of selection**
+
+pi and heterozygosity: Which populations are more or less diverse? as the latitude increases we are seeing a linear trend with nucleotide diversity.
+
+Tajima’s D: Are there regions of positive and/or balancing selection? There are not a lot of strong indications based on site. Between zero and negative 2, positive selection. Would be more helpful to look across the genome. There is a little bit of a latitudinal trend.
+
+FST: How different are the populations, and which regions stand out? There is a much greater difference in the genomes of the two southernmost populations. The southern populations are generally more red. The two southernmost are also extremely similar to each other. there seems to be a positive linear trend with the isolation by difference.
+
+BayPass XtX\*: Which SNPs are more differentiated than the populations demography alone predicts? uses a matrix of omega values, scales heterozygosity so it is not strictly a pairwise phenomena. Identified a large number of significant SNPs. Created an omega tree to look at relation between the different sampling sites. See where the significant areas are on the genome. Outlier analysis looks at what stands out beyond that neutral structure.
+
+**Genotype × environment associations**
+
+BayPass covariate model (BF): Which SNPs are associated with latitudinal or temperature differences? Somewhat like a significance factor. Red is decisive on the graph. There is a big difference between the SNPs for lat compared to surface temperature. More significant SNPs associated with latitude. Looked at specific SNPs, top LAT and SST plots. No clear pattern for surface temp, for latitude there is a much more clear association between top SNP and latitude (sanity check). Finding regions that are significant in both of the plots.
+
+**Genes of interest**
+
+Gene types (SnpEff): Where are the outlier SNPs relative to genes, and what is there potential function? total amount of SNPs for each category and affect on genome. Implies that the changes that were made are more regulatory. There is a much larger count in the latitude group, than the surface temperature group
+
+Gene Ontology: Are the candidate genes enriched for particular functions? They are looking at potential functions of candidate genes. Making sure we are checking the website further. Starting to look at the biology of what these candidate genes are actually doing.
