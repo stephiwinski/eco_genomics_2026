@@ -6,9 +6,9 @@ utilizing VCF (Variant Call Format) to access genome data for *Lottia gigantea* 
 
 Module load
 
--   gcc
+- gcc
 
--   bcftools v1.19
+- bcftools v1.19
 
 use —version to get the version you are using
 
@@ -69,7 +69,7 @@ cross-validation error plot
 
 Look for the K with the lowest CV error, or the point where the curve flattens out.
 
--   three has the lowest error here, want to look into that further. we will be plotting all five.
+- three has the lowest error here, want to look into that further. we will be plotting all five.
 
 Admixture plot K1-5
 
@@ -133,11 +133,11 @@ similar code to look at how Tajima's D is spread across the genome. If Tajima's 
 
 Heterozygosity
 
--   **Observed heterozygosity** (HO) is the proportion of sites at which an individual is heterozygous.
+- **Observed heterozygosity** (HO) is the proportion of sites at which an individual is heterozygous.
 
--   **Expected heterozygosity** (HE) is the proportion we would expect if the population mated at random (Hardy–Weinberg equilibrium): 2pq at each site, where p and q are the allele frequencies.
+- **Expected heterozygosity** (HE) is the proportion we would expect if the population mated at random (Hardy–Weinberg equilibrium): 2pq at each site, where p and q are the allele frequencies.
 
--   **The inbreeding coefficient** compares the two: F = 1 − HO / HE. F = 0 means an individual is as heterozygous as expected, F \> 0 means less heterozygous, and F \< 0 means more.
+- **The inbreeding coefficient** compares the two: F = 1 − HO / HE. F = 0 means an individual is as heterozygous as expected, F \> 0 means less heterozygous, and F \< 0 means more.
 
 Using `ggdist` to make a rain cloud plot
 
@@ -230,13 +230,13 @@ then repeated it with latitude
 
 what do these patterns suggest
 
--   the graph above has a strong association with latitude, which is interesting to look into. Supposedly this SNP is standing outside of the omega matrix, this is greater than what we would expect from neutral pop structure
+- the graph above has a strong association with latitude, which is interesting to look into. Supposedly this SNP is standing outside of the omega matrix, this is greater than what we would expect from neutral pop structure
 
--   you would want it to be a negative slope, or a relationship across the sites with temperature for there to be something going on with sea surface temperature. (flat graph that is not visualized here but was seen in class. They all had .75)
+- you would want it to be a negative slope, or a relationship across the sites with temperature for there to be something going on with sea surface temperature. (flat graph that is not visualized here but was seen in class. They all had .75)
 
 <!-- -->
 
--   Change and pull out the counts to change the top snp and to change which one is being visualized on the graph.
+- Change and pull out the counts to change the top snp and to change which one is being visualized on the graph.
 
 BayPass is really good at accounting for multiple variables in analysis.
 
@@ -252,7 +252,7 @@ Molecular functions and cellular components that can be looked at but we will no
 
 There is GO for genomic offset and GO for gene ontology which is what we are doing here.
 
--   got files from the class folder to our own directory.
+- got files from the class folder to our own directory.
 
 my directory `/users/s/i/siwinski/projects/eco_genomics_2026/population_genomics/`
 
@@ -294,15 +294,15 @@ Do individuals cluster by site or region? They seem to be clustering by region.
 
 How many genetic groups are there, and are individuals of mixed ancestry? Seems like there are three groups, and they are of mixed ancestry due to the fluidity of oceans.
 
--   seems like the PCA and admixture support each other. Using this as a gauge as to how many populations we have.
+- seems like the PCA and admixture support each other. Using this as a gauge as to how many populations we have.
 
--   K=5 has way to much noise, and error.
+- K=5 has way to much noise, and error.
 
--   Could select K=2 or 3
+- Could select K=2 or 3
 
--   its not to say that there aren't 3 distinct populations, but we can see the right two populations are distinctly different from the rest of the groups in all 5 admixtures. Those two on the right are the southernmost groups. What drives them? Could it be temperature?
+- its not to say that there aren't 3 distinct populations, but we can see the right two populations are distinctly different from the rest of the groups in all 5 admixtures. Those two on the right are the southernmost groups. What drives them? Could it be temperature?
 
--   Those two are in an area where there is a lot of up-welling and is a bit colder than one of the populations slightly north. There might not be a lot of dispersion jut because of geography.
+- Those two are in an area where there is a lot of up-welling and is a bit colder than one of the populations slightly north. There might not be a lot of dispersion jut because of geography.
 
 **Genetic diversity and signatures of selection**
 
@@ -323,3 +323,63 @@ BayPass covariate model (BF): Which SNPs are associated with latitudinal or temp
 Gene types (SnpEff): Where are the outlier SNPs relative to genes, and what is there potential function? total amount of SNPs for each category and affect on genome. Implies that the changes that were made are more regulatory. There is a much larger count in the latitude group, than the surface temperature group
 
 Gene Ontology: Are the candidate genes enriched for particular functions? They are looking at potential functions of candidate genes. Making sure we are checking the website further. Starting to look at the biology of what these candidate genes are actually doing.
+
+### Homework #2 
+
+R script `~/projects/eco_genomics_2026/population_genomics/myscripts/Homework 2.R`
+
+code I used in terminal to analyze the data with vcftools
+
+```{bash}
+
+cd /users/s/i/siwinski/projects/eco_genomics_2026/population_genomics/mydata
+
+VCF=$DIR/Lottia_gigantea_flt3_sub0.01.vcf.gz
+
+
+vcftools --gzvcf $VCF \
+        --keep ASU.txt \
+        --window-pi 100000 \
+        --out pi/ASU_pi_100kb
+        
+
+vcftools --gzvcf $VCF \
+        --keep KRU.txt \
+        --window-pi 100000 \
+        --out pi/KRU_pi_100kb
+
+
+vcftools --gzvcf ${VCF} \
+  --weir-fst-pop pops/ASU.txt \
+  --weir-fst-pop pops/KRU.txt \
+  --fst-window-size 100000 \
+  --fst-window-step 100000 \
+  --out fst/ASU_vs_KRU_FST_10kb \
+  2> fst/ASU_vs_KRU_FST_10kb.log
+```
+
+Figures I generated
+
+![](myresults/pi_ASU_violin.png){width="421"}
+
+Violin plot showing the nucleotide diversity of the most northern population (ASU).
+
+![](myresults/pi_KRU_violin.png){width="497"}
+
+Violin plot showing the nucleotide diversity of the most southern population (KRU).
+
+![](myresults/pi/pi_along_scaffold_ASU.png){width="4800"}
+
+graph showing the pi for the most northern population (ASU).
+
+![](myresults/pi/pi_along_scaffold_KRU.png){width="4800"}
+
+graph showing the pi for the most southern population (KRU).
+
+![](myresults/fst_scan_ASU_vs_KRU.png)
+
+FST comparing ASU and KRU. Plotting the scan and mark the windows in the top 1% of the FST distribution. AN empirical cut-off like this ranks candidates, its not a statistical test.
+
+Slso made a text file of the outliers showing 67 outliers.
+
+From Signatures of Selection "A genome-wide FST is a single number. To find where in the genome populations are unusually different, we need FST along the genome. Single-SNP estimates are can be noisy with low sample size whereby a SNP can show high FST just because of which individuals happened to be sampled, here we have good coverage but it is still often useful to do windowed approaches. Averaging over windows of neighbouring SNPs smooths out this noise and matches the expectation that hitchhiking affects a whole region rather than a single base."
