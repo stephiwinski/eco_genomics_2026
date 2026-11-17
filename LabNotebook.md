@@ -48,11 +48,11 @@ editor_options:
 
 ## 9/15/2026 - Setting up lab notebook and learning markdown
 
--   setting up transcriptomics notebook
+- setting up transcriptomics notebook
 
--   learn how to take notes in markdown
+- learn how to take notes in markdown
 
--   push notes to github
+- push notes to github
 
 **Working Directory:**
 
@@ -68,9 +68,9 @@ editor_options:
 
 **Programs and Dependencies:**
 
--   `R version 4.5.1`
+- `R version 4.5.1`
 
--   `R-studio`
+- `R-studio`
 
 **Scripts:**
 
@@ -92,17 +92,17 @@ print ("Hello World")
 
 **Notes/Observations:**
 
--   oh cool graph! it makes sense! and some interpretation of your data
+- oh cool graph! it makes sense! and some interpretation of your data
 
 ------------------------------------------------------------------------
 
 ## 9/15/2026 - Setting up lab notebook and learning markdown
 
--   setting up transcriptomics notebook
+- setting up transcriptomics notebook
 
--   learn how to take notes in markdown
+- learn how to take notes in markdown
 
--   push notes to github
+- push notes to github
 
 **Working Directory:**
 
@@ -118,9 +118,9 @@ print ("Hello World")
 
 **Programs and Dependencies:**
 
--   `R version 4.5.1`
+- `R version 4.5.1`
 
--   `R-studio`
+- `R-studio`
 
 **Scripts:**
 
@@ -134,4 +134,4 @@ print ("Hello World")
 
 **Table:**
 
-
+## 11/17/2026 - Group Project Notes

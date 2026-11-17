@@ -220,3 +220,137 @@ fst_outliers <- fst_win %>%
 head(fst_outliers, 10)
 write_tsv(fst_outliers, paste0("fst/", pop1, "_vs_", pop2, "_FST_100kb_outliers.txt"))
 
+
+# Combined violin plot ####
+
+pi_combined <- bind_rows(pi_KRU, pi_ASU)
+
+
+pi_combined_plot <- pi_combined %>%
+  ggplot(aes(x = Population, y = PI, fill = Population)) +
+  geom_violin(scale = "width", linewidth = 0.5, colour = NA) +
+  geom_boxplot(width = 0.15, outlier.shape = NA, linewidth = 0.3) +
+  scale_fill_manual(values = c(
+    "KRU" = "#00BFC4",
+    "ASU" = "#FFB6C1"
+  )) +
+  scale_y_log10() +
+  labs(x = "Population", y = "log10(Nucleotide diversity)") +
+  theme_classic() +
+  theme(legend.position = "none") +
+  coord_flip()
+
+pi_combined_plot
+
+
+
+# putting the graphs together ####
+
+library(patchwork)
+
+# Read FST data
+pop1 <- "ASU"
+pop2 <- "KRU"
+
+fst_win <- read_tsv(
+  paste0("fst/", pop1, "_vs_", pop2,"_FST_100kb.windowed.weir.fst"))
+
+# Calculate midpoint of each 100kb window
+ASU_win <- pi_ASU %>%
+  mutate(POS = (BIN_START + BIN_END) / 2)
+
+KRU_win <- pi_KRU %>%
+  mutate(POS = (BIN_START + BIN_END) / 2)
+
+fst_win <- fst_win %>%
+  mutate(POS = (BIN_START + BIN_END) / 2)
+
+# Combine positions to establish a shared scaffold order
+all_pos <- bind_rows(
+  ASU_win %>% select(CHROM, POS),
+  KRU_win %>% select(CHROM, POS),
+  fst_win %>% select(CHROM, POS)
+)
+
+scaffold_order <- unique(all_pos$CHROM)
+
+# Calculate scaffold offsets
+scaffold_offsets <- all_pos %>%
+  group_by(CHROM) %>%
+  summarise(scaffold_length = max(POS, na.rm = TRUE),
+            .groups = "drop") %>%
+  arrange(match(CHROM, scaffold_order)) %>%
+  mutate(offset = lag(cumsum(scaffold_length), default = 0))
+
+
+# Add cumulative genome positions
+add_genome_pos <- function(df) {
+  df %>%
+    left_join(scaffold_offsets %>% select(CHROM, offset), by = "CHROM") %>%
+    mutate(genome_pos = offset + POS) %>%
+    arrange(CHROM, POS)
+}
+
+ASU_win <- add_genome_pos(ASU_win)
+KRU_win <- add_genome_pos(KRU_win)
+fst_win <- add_genome_pos(fst_win)
+
+
+# ASU log2 nucleotide diversity
+pi_plot_ASU <- ASU_win %>%
+  filter(!is.na(PI), PI > 0) %>%
+  mutate(log2_PI = -log2(PI)) %>%
+  ggplot(aes(x = genome_pos / 1e6, y = log2_PI)) +
+  geom_line(aes(group = CHROM), color = "#FFB6C1", alpha = 0.8, linewidth = 0.3) +
+  labs(title = "ASU", x = "Position along genome (Mb)", y = expression(log[2](pi))) +
+  theme_classic()
+
+
+# KRU log2 nucleotide diversity
+pi_plot_KRU <- KRU_win %>%
+  filter(!is.na(PI), PI > 0) %>%
+  mutate(log2_PI = -log2(PI)) %>%
+  ggplot(aes(x = genome_pos / 1e6, y = log2_PI)) +
+  geom_line(aes(group = CHROM), color = "#00BFC4", alpha = 0.8, linewidth = 0.3) +
+  labs(title = "KRU", x = "Position along genome (Mb)", y = expression(log[2](pi))) +
+  theme_classic()
+
+
+sum(ASU_win$PI == 0, na.rm = TRUE)
+sum(KRU_win$PI == 0, na.rm = TRUE)
+
+
+# Calculate 99th percentile FST threshold
+fst_cut <- quantile(fst_win$WEIGHTED_FST, probs = 0.99)
+
+# Identify outlier windows
+fst_win <- fst_win %>%
+  mutate(outlier = WEIGHTED_FST >= fst_cut)
+
+# FST genome-wide line graph
+fst_plot <- fst_win %>%
+  ggplot(aes(x = genome_pos / 1e6, y = WEIGHTED_FST)) +
+  geom_line(aes(group = CHROM), color = "grey35", linewidth = 0.3) +
+  geom_point(data = filter(fst_win, outlier), color = "red",size = 1) +
+  geom_hline(yintercept = fst_cut,linetype = "dashed", color = "red") +
+  labs(title = "ASU vs KRU", x = "Position along genome (Mb)", y = expression(F[ST])) +
+  theme_classic()
+
+
+# Combine all three plots
+combined_pi_fst <- (
+  pi_plot_ASU /
+    pi_plot_KRU /
+    fst_plot) +
+  plot_layout(ncol = 1) +
+  plot_annotation(tag_levels = "A")
+
+
+# Display combined figure
+combined_pi_fst
+
+
+# Save figure
+ggsave(paste0(OUTDIR, "/combined_pi_fst_genome_scan.png"), plot = combined_pi_fst, width = 14, height = 10, dpi = 300)
+
+

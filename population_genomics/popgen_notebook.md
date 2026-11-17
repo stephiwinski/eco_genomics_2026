@@ -324,7 +324,7 @@ Gene types (SnpEff): Where are the outlier SNPs relative to genes, and what is t
 
 Gene Ontology: Are the candidate genes enriched for particular functions? They are looking at potential functions of candidate genes. Making sure we are checking the website further. Starting to look at the biology of what these candidate genes are actually doing.
 
-### Homework #2 
+### Homework #2
 
 R script `~/projects/eco_genomics_2026/population_genomics/myscripts/Homework 2.R`
 
@@ -380,6 +380,6 @@ graph showing the pi for the most southern population (KRU).
 
 FST comparing ASU and KRU. Plotting the scan and mark the windows in the top 1% of the FST distribution. AN empirical cut-off like this ranks candidates, its not a statistical test.
 
-Slso made a text file of the outliers showing 67 outliers.
+Also made a text file of the outliers showing 66 outliers.
 
 From Signatures of Selection "A genome-wide FST is a single number. To find where in the genome populations are unusually different, we need FST along the genome. Single-SNP estimates are can be noisy with low sample size whereby a SNP can show high FST just because of which individuals happened to be sampled, here we have good coverage but it is still often useful to do windowed approaches. Averaging over windows of neighbouring SNPs smooths out this noise and matches the expectation that hitchhiking affects a whole region rather than a single base."
