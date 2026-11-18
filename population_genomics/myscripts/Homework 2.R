@@ -223,8 +223,8 @@ write_tsv(fst_outliers, paste0("fst/", pop1, "_vs_", pop2, "_FST_100kb_outliers.
 
 # Combined violin plot ####
 
-pi_combined <- bind_rows(pi_KRU, pi_ASU)
-
+pi_combined <- bind_rows(pi_KRU, pi_ASU) %>%
+  mutate(Population = factor(Population, levels = c("ASU", "KRU")))
 
 pi_combined_plot <- pi_combined %>%
   ggplot(aes(x = Population, y = PI, fill = Population)) +
@@ -242,11 +242,15 @@ pi_combined_plot <- pi_combined %>%
 
 pi_combined_plot
 
+ggsave(paste0(OUTDIR, "/combined_violin_plot.png"), plot = pi_combined_plot, width = 6, height = 5)
 
 
 # putting the graphs together ####
 
+install.packages("patchwork")
+
 library(patchwork)
+library(ggplot2)
 
 # Read FST data
 pop1 <- "ASU"
@@ -339,8 +343,8 @@ fst_plot <- fst_win %>%
 
 # Combine all three plots
 combined_pi_fst <- (
-  pi_plot_ASU /
-    pi_plot_KRU /
+  pi_plot_KRU /
+    pi_plot_ASU /
     fst_plot) +
   plot_layout(ncol = 1) +
   plot_annotation(tag_levels = "A")
@@ -352,5 +356,17 @@ combined_pi_fst
 
 # Save figure
 ggsave(paste0(OUTDIR, "/combined_pi_fst_genome_scan.png"), plot = combined_pi_fst, width = 14, height = 10, dpi = 300)
+
+
+
+# FST Range ####
+fst_win %>%
+  summarise(
+    mean_FST = mean(WEIGHTED_FST, na.rm = TRUE),
+    median_FST = median(WEIGHTED_FST, na.rm = TRUE),
+    min_FST = min(WEIGHTED_FST, na.rm = TRUE),
+    max_FST = max(WEIGHTED_FST, na.rm = TRUE),
+    fst_cutoff = first(fst_cut)
+  )
 
 

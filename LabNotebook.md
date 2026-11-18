@@ -135,3 +135,76 @@ print ("Hello World")
 **Table:**
 
 ## 11/17/2026 - Group Project Notes
+
+Copy 16S data and scripts into final_project folder (using terminal):
+
+```{bash}
+cp -r /gpfs1/cl/biol3990/PopulationGenomics/16S /gpfs1/home/s/i/siwinski/projects/eco_genomics_2026/final_project
+```
+
+Created a new script titled `PCA_zebrafish.R`
+
+```{r}
+# DATA DIMENSIONS
+cat("OTU table:", nrow(otu), "taxa x", ncol(otu), "samples\n")
+# OTU table: 36756 taxa x 473 samples
+cat("Taxonomy:", nrow(tax), "taxa\n")
+# Taxonomy: 73171 taxa
+cat("Metadata:", nrow(metadata), "samples\n")
+# Metadata: 477 samples
+cat("Tree:", length(phy_tree$tip.label), "tips\n")
+# Tree: 36756 tips
+# OTU taxa found in taxonomy: 36756 of 36756 
+# OTU samples found in metadata: 473 of 473 
+# Number of taxa: 36756 
+# Number of samples: 473 
+
+
+# "1] Min. number of reads = 33"
+
+# "2] Max. number of reads = 76697"
+
+# "3] Total number of reads = 17882766"
+
+# "4] Average number of reads = 37807.1162790698"
+
+# "5] Median number of reads = 40897"
+
+# "7] Sparsity = 0.993582558151039"
+
+# "6] Any OTU sum to 1 or less? NO"
+
+# "8] Number of singletons = 0"
+
+# "9] Percent of OTUs that are singletons \n        (i.e. exactly one read detected across all samples)0"
+
+# "10] Number of sample variables are: 11"
+
+# > ntaxa(ps)
+# [1] 36756
+# > nsamples(ps)
+# [1] 473
+```
+
+```{r}
+# Number of samples: 435 
+# Number of features: 36728 
+# Minimum reads/sample: 33 
+# Median reads/sample: 39395 
+# Maximum reads/sample: 76697 
+```
+
+Rarification, removing the samples with low amounts of reads.
+
+```         
+> print(sample_retention)
+  depth samples_retained samples_total proportion_retained percent_retained samples_lost
+1  1000              432           435          0.99310345        99.310345            3
+2  2500              431           435          0.99080460        99.080460            4
+3  5000              429           435          0.98620690        98.620690            6
+4 10000              409           435          0.94022989        94.022989           26
+5 15000              385           435          0.88505747        88.505747           50
+6 20000              353           435          0.81149425        81.149425           82
+7 30000              284           435          0.65287356        65.287356          151
+8 60000               25           435          0.05747126         5.747126          410
+```

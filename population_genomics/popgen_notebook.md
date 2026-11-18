@@ -383,3 +383,9 @@ FST comparing ASU and KRU. Plotting the scan and mark the windows in the top 1% 
 Also made a text file of the outliers showing 66 outliers.
 
 From Signatures of Selection "A genome-wide FST is a single number. To find where in the genome populations are unusually different, we need FST along the genome. Single-SNP estimates are can be noisy with low sample size whereby a SNP can show high FST just because of which individuals happened to be sampled, here we have good coverage but it is still often useful to do windowed approaches. Averaging over windows of neighbouring SNPs smooths out this noise and matches the expectation that hitchhiking affects a whole region rather than a single base."
+
+additional combined figures
+
+![](myresults/combined_pi_fst_genome_scan.png){width="566"}
+
+![](myresults/combined_violin_plot.png){width="505"}
