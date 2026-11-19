@@ -208,3 +208,23 @@ Rarification, removing the samples with low amounts of reads.
 7 30000              284           435          0.65287356        65.287356          151
 8 60000               25           435          0.05747126         5.747126          410
 ```
+
+## 11/19/2026 - Group Project Notes
+
+Worked through the script `hypoxia.r`
+
+Worked through a lot of the R script provided by Danny. Looked at the
+phyla, order, and class of bacteria sampled. Created figures of each of
+these, below the order graph is visualized. Was able to do a lot of
+statistical analyses including the Dunn test, the Shannon index, and
+Kruskal (Faith PD) tests. Below the observed features graph is added, as
+well as the graph produced from the Shannon index test. Next steps are
+to look into alpha and beta diversity, and to look into these
+statistical tests to have a better understanding of the results we
+received.
+
+![](final_project/myresults/order_plot.png)
+
+![](final_project/myresults/observed_features.png){width="608"}
+
+![](final_project/myresults/shannon_index.png){width="596"}

@@ -40,6 +40,12 @@ library(rstatix)
 
 library(RColorBrewer)
 
+unloadNamespace("microbiome")
+unloadNamespace("phyloseq")
+unloadNamespace("vegan")
+unloadNamespace("permute")
+
+
 #library(scico)
 
 # IMPORT OTU TABLE
@@ -348,8 +354,8 @@ load("ps.skin.Rdata")
 
 # RAREFACTION DEPTH ASSESSMENT
 # BASIC INFORMATION 
-cat("Number of samples:", nsamples(ps.skin), "\n")
-cat("Number of features:", ntaxa(ps.skin), "\n")
+cat("Number of samples:", nsamples(ps.skin), "\n") # Number of samples: 435 
+cat("Number of features:", ntaxa(ps.skin), "\n") # Number of features: 36728 
 
 reads <- sample_sums(ps.skin)
 
@@ -437,6 +443,7 @@ ggplot(
   ) +
   theme_classic(base_size = 18)
 
+
 # CONVERT OTU TABLE TO SAMPLE x FEATURE MATRIX
 otu <- as(otu_table(ps.skin), "matrix")
 
@@ -446,8 +453,8 @@ if (taxa_are_rows(ps.skin)) {
 
 # Check dimensions
 cat("\nOTU matrix dimensions:\n")
-cat("Samples:", nrow(otu), "\n")
-cat("Features:", ncol(otu), "\n")
+cat("Samples:", nrow(otu), "\n") # 435
+cat("Features:", ncol(otu), "\n") # 36728
 
 # RAREFACTION DEPTH ASSESSMENT
 # GET OTU TABLE AS SAMPLE x FEATURE MATRIX
@@ -466,11 +473,11 @@ cat("Features:", ncol(otu), "\n")
 sample_depths <- rowSums(otu)
 
 cat("LIBRARY SIZE SUMMARY\n")
-cat("Minimum reads:", min(sample_depths), "\n")
-cat("1st quartile:", quantile(sample_depths, 0.25), "\n")
-cat("Median reads:", median(sample_depths), "\n")
-cat("3rd quartile:", quantile(sample_depths, 0.75), "\n")
-cat("Maximum reads:", max(sample_depths), "\n")
+cat("Minimum reads:", min(sample_depths), "\n") # 33
+cat("1st quartile:", quantile(sample_depths, 0.25), "\n") # 23457.5
+cat("Median reads:", median(sample_depths), "\n") # 39395
+cat("3rd quartile:", quantile(sample_depths, 0.75), "\n") # 50345
+cat("Maximum reads:", max(sample_depths), "\n") # 76697
 
 cat("\nLowest 20 samples:\n")
 print(sort(sample_depths)[1:min(20, length(sample_depths))])
@@ -565,6 +572,7 @@ ggplot(
     y = "Expected observed features\n"
   ) +
   theme_classic(base_size = 18)
+
 
 # SAMPLE RETENTION AT CANDIDATE DEPTHS
 depths <- sort(
@@ -855,8 +863,8 @@ ps.skin.rare <- rarefy_even_depth(
    verbose = FALSE
  )
 
-#save.image(file = "ps.clean.RData")
-#load("ps.clean.RData")
+save.image(file = "ps.clean.RData")
+load("ps.clean.RData")
 
 ################################################################################
 ## COMMUNITY COMPOSITION
@@ -980,6 +988,12 @@ data_glom.p$Treatment_main <- factor(
   levels = treatment_order
 )
 
+
+install.packages("scico")
+library(ggplot2)
+library(scico)
+
+
 # PHYLA BAR PLOT
 phyla <- ggplot(
   data = data_glom.p,
@@ -1090,7 +1104,7 @@ data_glom.o$Order[data_glom.o$Abundance < 0.04] <- "<4% abundance features"
 
 # count # order to set color palette
 Count.o = length(unique(data_glom.o$Order))
-Count.o
+Count.o # 13
 
 unique(data_glom.o$Order)
 sort(unique(as.character(data_glom.o$Order)))
@@ -1150,6 +1164,9 @@ order
 ################################################################################
 ## ALPHA DIVERSITY
 ################################################################################
+
+install.packages("knitr")
+library(knitr)
 
 # get an overview of diversity in samples for all available indices of alpha diversity
 alpha_table <- microbiome::alpha(ps.skin.rare, index = "all")
@@ -1322,6 +1339,7 @@ faith
 ## pairwise Kruskal Wallis
 res.kruskal <- plot_data %>% kruskal_test(observed ~ Treatment_main)
 res.kruskal
+# 
 
 # pairwise comparisons
 # DUNNS test
